@@ -26,6 +26,17 @@ html
 
 			section
 				h2.bullet Why?
+				h3.bullet Because I run my email off a recycled computer in my house
+				h3 &nbsp;
+				h3 &nbsp;
+				h3 &nbsp;
+
+			section
+				img(src='TODO' alt='A desktop computer sitting on the floor in the corner of a room')
+
+			section
+				h2 Why?
+				h3.bullet Because I run my email off a recycled computer in my house
 				h3.bullet Because talking about the internet is fun
 				h3.bullet Also, email is actually really complicated
 				h3.bullet Speaking of which:
@@ -34,6 +45,7 @@ html
 				h2.bullet What?
 				h3.bullet Why email is as complicated as it is
 				h3.bullet Traditional UNIX: MTAs, MDAs and MUAs
+				h3.bullet Internet Message Format
 				h3.bullet SMTP
 				h3.bullet IMAP and POP3 (briefly)
 
@@ -46,8 +58,79 @@ html
 				h3.bullet Tying it all together: modern email
 
 			section
+				h2.bullet Take me back!
+				h3.bullet Email is a new invention
+				h3.bullet The World Wide Web isn't around yet
+				h3.bullet The physical Internet is still new and still growing relatively organically
+				h3.bullet Most importantly, the network isn't always up
+				h3.bullet Hosts, and the subnets they route to, regularly disappear off the network, only to come back a couple hours later
+
+			section
+				h2.bullet The email idea
+				h3.bullet Email is about implementing a reliable protocol over an unreliable network
+				h3.bullet If there's no direct route to the destination host, then we should get as close as possible, then try again later
+				h3.bullet When we try again, hopefully the required network link will have come up again and the email will get even closer
+				h3.bullet Email is to physical networks what TCP is to IP
+
+			section
+				h2.bullet Complications, complications
+				h3.bullet This is wy email is so complicated
+				h3.bullet Nowadays, we don't have to worry about network reliability
+				h3.bullet But we still use a system that was designed for a different era of the Internet
+
+			section
+				h2.bullet The UNIX mail architecture
+				h3.bullet UNIX philosophy
+				h3.bullet Do one thing and do it well
+				h3.bullet Write programs that handle streams of text, because that is a universal interface
+				h3.bullet MTAs, MDAs, and MUAs all do one email-related thing, and they do it well
+
+			section
+				h2.bullet Mail Transport Agents: the backbone of email
+				h3.bullet MTAs are the daemons that do the brunt of the work
+				h3.bullet They're responsible for moving messages around the Internet
+				h3.bullet Every mail host runs, at minimum, some kind of MTA
+				h3.bullet Popular MTAs include Postfix, Exim and QMail
+				h3.bullet The most famous MTA is undoubtedly Sendmail
+
+			section
+				h2.bullet MTAs: the good
+				h3.bullet In the simplest case, the originating mail host's MTA connects to the destination mail host's MTA
+				h3.bullet Then it sends the message and the destination MTA hands it off to the system for local processing
+
+			section
+				h2.bullet MTAs: the bad
+				h3.bullet In a more complicated scenario, there's no direct route to the destination host, but there's a gateway server between the origin network and the destination network
+				h3.bullet This gateway server runs an MTA
+				h3.bullet The originating MTA connects to the gateway MTA and hands off the message
+				h3.bullet The gateway MTA connects to the destination MTA and hands off the message a second time
+
+			section
+				h2.bullet MTAs: the ugly
+				h3.bullet Three networks: Networks A, B, and C
+				h3.bullet A <---> B <---> C; A <-/-> C
+				h3.bullet All networks are only intermittently connected
+				h3.bullet A host in Network A wants to send an email to a host in Network C
+
+			section
+				h2.bullet MTAs: the ugly
+				h3.bullet The originating mail host's MTA, in Network A, tries connecting to a known MTA in Network B
+				h3.bullet If this works, the message is passed on and the originating MTA doesn't have to worry about it anymore
+				h3.bullet If not, the originating MTA will put the mail into a queue and try again in a couple hours
+
+			section
+				h2.bullet MTAs: the ugly
+				h3.bullet If it <em>still</em> doesn't work after retrying, rinse, lather, repeat
+				h3.bullet Eventually the message gets delivered
+				h3.bullet Or, alternately, the originating MTA decides to give up and stop trying
+				h3.bullet At this point, the MTA will probably send you a "permanent failure" email letting you know that your message didn't go through and apologizing for how much the network reliability sucks.
+
+			section
+				h2.bullet MDAs
+
+			section
 				h2 Syntax Highlighting
-				h3 Powered by <a href="http://twitter.com/LeaVerou">Lea Verou</a>'s <a href="https://github.com/LeaVerou/prism">Prism</a>
+				h3 Powered by <a href="http://twitter.com/LeaVerou">Lea Verou</a>'s <a href="https://github.com/LeaVerou/prismo">Prism</a>
 				pre
 					code.language-javascript.
 						bespoke.from('article', [
